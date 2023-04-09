@@ -3,13 +3,13 @@ import api from '../api/api';
 import { Post } from '../types/types';
 
 interface UsePosts {
-  data: Post | undefined;
+  data: Post[] | undefined;
   isLoading: boolean;
   error: any;
 }
 
 const usePosts = (postId?: number): UsePosts => {
-  const { isLoading, error, data } = useQuery<Post>(
+  const { isLoading, error, data } = useQuery<Post[]>(
     ['post', postId],
     async () => {
       const response = await api().get(postId ? `posts/${postId}` : `posts`);
