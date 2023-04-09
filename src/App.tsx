@@ -55,12 +55,6 @@ const data = [
     description: 'Health for your life',
     author: 'Afonso Cruz',
   },
-  {
-    id: 9,
-    title: 'Health',
-    description: 'Health for your life',
-    author: 'Afonso Cruz',
-  },
 ];
 
 const App: FC = () => {
