@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React from 'react';
 import './styles/global.css';
 
 import Feed from './components/Feed';
@@ -10,19 +10,25 @@ import usePosts from './hooks/usePosts';
 import useFilteredPosts from './hooks/useFilteredPosts';
 import LoadingPage from './components/LoadingSpinner';
 import PostsNotFound from './components/PostsNotFound';
+import usePostsPagination from './hooks/usePostsPagination';
 
-const App: FC = () => {
-  const [inputSearch, setInputSearch] = useState('');
-  const { data, isLoading } = usePosts();
-  const { filteredPosts } = useFilteredPosts(data!, inputSearch);
+const App = () => {
+  const [inputSearch, setInputSearch] = React.useState<string>('');
+  const { isLoading, data } = usePosts();
+  const { paginatedData, currentPage, setCurrentPage, postsPerPage } =
+    usePostsPagination(20);
+
+  const { filteredPosts } = useFilteredPosts(paginatedData!, inputSearch);
 
   if (isLoading) return <LoadingPage />;
 
-  if (!data) return null;
+  if (!paginatedData) return null;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
+
+  if (!data) return;
 
   return (
     <>
@@ -34,7 +40,7 @@ const App: FC = () => {
         />
         {filteredPosts && filteredPosts.length === 0 && <PostsNotFound />}
         <CardsGrid>
-          <Feed data={!inputSearch ? data : filteredPosts} />
+          <Feed data={!inputSearch ? paginatedData : filteredPosts} />
         </CardsGrid>
       </Layout>
     </>
