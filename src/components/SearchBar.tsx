@@ -1,13 +1,17 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
 
 interface SearchBarProps {
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = (props: SearchBarProps) => {
   return (
-    <form className="flex items-center justify-center pb-10">
+    <form
+      className="flex items-center justify-center pb-10"
+      onSubmit={props.onSubmit}
+    >
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
