@@ -12,13 +12,13 @@ interface UsePostsPaginationProps {
 const usePostsPagination = (pageSize: number): UsePostsPaginationProps => {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
 
+  const { data } = usePosts();
+
   const postsPerPage: number = pageSize;
 
   // Handle the logic to calculate the starting and ending indexes of the posts to be displayed in the current page
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-
-  const { data } = usePosts();
 
   const paginatedData = data?.slice(startIndex, endIndex);
 

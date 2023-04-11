@@ -12,7 +12,7 @@ import LoadingPage from './components/LoadingSpinner';
 import PostsNotFound from './components/PostsNotFound';
 import usePostsPagination from './hooks/usePostsPagination';
 
-const App = () => {
+const App: React.FC = () => {
   const [inputSearch, setInputSearch] = React.useState<string>('');
   const { isLoading, data } = usePosts();
   const { paginatedData, currentPage, setCurrentPage, postsPerPage } =
@@ -27,8 +27,6 @@ const App = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
-
-  if (!data) return;
 
   return (
     <>
