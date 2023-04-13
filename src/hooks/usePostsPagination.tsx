@@ -1,7 +1,7 @@
 import React from 'react';
 import usePosts from './usePosts';
 import { Post } from '../types/types';
-import { PageContext, SetPageContext } from '../context/PageContext';
+import { PageContext } from '../context/PageContext';
 
 interface UsePostsPaginationProps {
   paginatedData: Post[] | undefined;

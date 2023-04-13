@@ -16,14 +16,14 @@ import { PageContext, SetPageContext } from './context/PageContext';
 
 const App: React.FC = () => {
   const [inputSearch, setInputSearch] = React.useState<string>('');
-  const { isLoading } = usePosts();
+  const { isLoading, data } = usePosts();
 
   const postsPerPage: number = 20;
 
   const { paginatedData, currentPage, setCurrentPage } =
     usePostsPagination(postsPerPage);
 
-  const { filteredPosts } = useFilteredPosts(paginatedData!, inputSearch);
+  const { filteredPosts } = useFilteredPosts(data!, inputSearch);
 
   if (isLoading) return <LoadingPage />;
 
