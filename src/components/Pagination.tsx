@@ -15,11 +15,15 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
   };
 
   return (
-    <div className="bg-white text-black">
+    <div className="bg-secondary text-white flex items-center justify-center mt-16">
       {Array.from(
         { length: Math.ceil(data?.length! / props.postsPerPage) },
         (_, i) => (
-          <button key={i} onClick={() => handleClick(i + 1)}>
+          <button
+            key={i}
+            onClick={() => handleClick(i + 1)}
+            className="mx-4 font-bold text-fluorescent opacity-70 hover:opacity-100"
+          >
             {i + 1}
           </button>
         )
