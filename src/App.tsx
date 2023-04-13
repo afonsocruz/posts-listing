@@ -46,7 +46,7 @@ const App: React.FC = () => {
           <CardsGrid>
             <Feed data={!inputSearch ? paginatedData : filteredPosts} />
           </CardsGrid>
-          <Pagination postsPerPage={postsPerPage} />
+          <Pagination postsPerPage={postsPerPage} currentPage={currentPage} />
         </Layout>
       </SetPageContext.Provider>
     </PageContext.Provider>

@@ -4,6 +4,7 @@ import { SetPageContext } from '../context/PageContext';
 
 interface PaginationProps {
   postsPerPage: number;
+  currentPage: number;
 }
 
 const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
@@ -22,7 +23,9 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
           <button
             key={i}
             onClick={() => handleClick(i + 1)}
-            className="mx-4 font-bold text-fluorescent opacity-70 hover:opacity-100"
+            className={`mx-4 font-bold text-fluorescent ${
+              i + 1 === props.currentPage ? 'opacity-100' : 'opacity-20'
+            } hover:opacity-100`}
           >
             {i + 1}
           </button>
