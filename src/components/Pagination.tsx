@@ -1,6 +1,11 @@
 import React from 'react';
 import usePosts from '../hooks/usePosts';
 import { SetPageContext } from '../context/PageContext';
+import Button, { ButtonProps } from './Button';
+
+interface CustomButtonProps extends ButtonProps {
+  active: boolean;
+}
 
 interface PaginationProps {
   postsPerPage: number;
@@ -20,15 +25,14 @@ const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
       {Array.from(
         { length: Math.ceil(data?.length! / props.postsPerPage) },
         (_, i) => (
-          <button
+          <Button
             key={i}
             onClick={() => handleClick(i + 1)}
             className={`mx-4 font-bold text-fluorescent ${
               i + 1 === props.currentPage ? 'opacity-100' : 'opacity-20'
             } hover:opacity-100`}
-          >
-            {i + 1}
-          </button>
+            label={i + 1}
+          />
         )
       )}
     </div>
