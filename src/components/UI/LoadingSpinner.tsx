@@ -34,10 +34,12 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = (
   );
 };
 
-const LoadingPage = () => {
+const LoadingPage: React.FC<LoadingSpinnerProps> = (
+  props: LoadingSpinnerProps
+) => {
   return (
     <div className="absolute top-0 right-0 w-screen h-screen flex justify-center items-center">
-      <LoadingSpinner size={45} />
+      <LoadingSpinner size={props.size} />
     </div>
   );
 };

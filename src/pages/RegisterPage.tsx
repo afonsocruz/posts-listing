@@ -2,21 +2,18 @@ import React from 'react';
 import Layout from '../layout/Layout';
 import Form from '../components/UI/Form';
 import { FormValues } from '../types/types';
-import { UserLogin } from '../services/AuthFirebase';
-import { AppContext } from '../context/AppContext';
+import { UserRegister } from '../services/AuthFirebase';
 import { useNavigate } from 'react-router-dom';
 
-const HomePage: React.FC = () => {
-  const { setUser } = React.useContext(AppContext);
+const RegisterPage: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  const handleUserLogin = async (data: FormValues) => {
+  const handleUserRegistration = async (data: FormValues) => {
     try {
       setIsLoading(true);
-      const response = await UserLogin(data.email, data.password);
-      setUser(response?.user);
+      let response = await UserRegister(data.email, data.password);
       setIsLoading(false);
       navigate('/posts');
       return response;
@@ -28,17 +25,17 @@ const HomePage: React.FC = () => {
   return (
     <Layout>
       <Form
-        onSubmit={handleUserLogin}
+        onSubmit={handleUserRegistration}
         isLogged={false}
-        label="Entrar"
+        label="Criar conta"
         isLoading={isLoading}
       >
         <h3 className="text-white text-center flex items-center justify-center mb-4 xs:text-xs md:text-sm ">
-          Crie postagens e se conecte com muitas pessoas!
+          Crie sua conta!
         </h3>
       </Form>
     </Layout>
   );
 };
 
-export default HomePage;
+export default RegisterPage;

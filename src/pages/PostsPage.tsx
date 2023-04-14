@@ -4,27 +4,30 @@ import Layout from '../layout/Layout';
 import Feed from '../components/Feed';
 import CardsGrid from '../components/CardsGrid';
 import SearchBar from '../components/SearchBar';
-import LoadingPage from '../components/LoadingSpinner';
+import LoadingPage from '../components/UI/LoadingSpinner';
 import PostsNotFound from '../components/PostsNotFound';
 import Pagination from '../components/Pagination';
 
 import usePosts from '../hooks/usePosts';
 import useFilteredPosts from '../hooks/useFilteredPosts';
-import usePostsPagination from '../hooks/usePostsPagination';
-import { PageContext, SetPageContext } from '../context/PageContext';
+import { AppContext } from '../context/AppContext';
 
 const PostsPage: React.FC = () => {
+  const { currentPage, user } = React.useContext(AppContext);
   const [inputSearch, setInputSearch] = React.useState<string>('');
   const { isLoading, data } = usePosts();
 
   const postsPerPage: number = 20;
 
-  const { paginatedData, currentPage, setCurrentPage } =
-    usePostsPagination(postsPerPage);
-
   const { filteredPosts } = useFilteredPosts(data!, inputSearch);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <LoadingPage size={35} />;
+
+  // Handle the logic to calculate the starting and ending indexes of the posts to be displayed in the current page
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+
+  const paginatedData = data?.slice(startIndex, endIndex);
 
   if (!paginatedData) return null;
 
@@ -33,9 +36,9 @@ const PostsPage: React.FC = () => {
   };
 
   return (
-    <PageContext.Provider value={currentPage}>
-      <SetPageContext.Provider value={setCurrentPage}>
-        <Layout>
+    <Layout>
+      {user && (
+        <>
           <SearchBar
             onChange={(event) => setInputSearch(event.target.value)}
             value={inputSearch}
@@ -46,9 +49,9 @@ const PostsPage: React.FC = () => {
             <Feed data={!inputSearch ? paginatedData : filteredPosts} />
           </CardsGrid>
           <Pagination postsPerPage={postsPerPage} currentPage={currentPage} />
-        </Layout>
-      </SetPageContext.Provider>
-    </PageContext.Provider>
+        </>
+      )}
+    </Layout>
   );
 };
 

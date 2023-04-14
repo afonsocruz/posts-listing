@@ -1,11 +1,7 @@
 import React from 'react';
 import usePosts from '../hooks/usePosts';
-import { SetPageContext } from '../context/PageContext';
-import Button, { ButtonProps } from './Button';
-
-interface CustomButtonProps extends ButtonProps {
-  active: boolean;
-}
+import Button from './UI/Button';
+import { AppContext } from '../context/AppContext';
 
 interface PaginationProps {
   postsPerPage: number;
@@ -13,7 +9,7 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = (props: PaginationProps) => {
-  const setCurrentPage = React.useContext(SetPageContext);
+  const { setCurrentPage } = React.useContext(AppContext);
   const { data } = usePosts();
 
   const handleClick = (i: number) => {
