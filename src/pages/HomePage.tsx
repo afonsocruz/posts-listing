@@ -5,6 +5,7 @@ import { FormValues } from '../types/types';
 import { UserLogin } from '../services/AuthFirebase';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const HomePage: React.FC = () => {
   const { setUser } = React.useContext(AppContext);
@@ -18,9 +19,12 @@ const HomePage: React.FC = () => {
       const response = await UserLogin(data.email, data.password);
       setUser(response?.user);
       setIsLoading(false);
+      toast.success('Logado com sucesso!');
       navigate('/posts');
       return response;
     } catch (err) {
+      setIsLoading(false);
+      toast.error('Email ou senha inválidos');
       return err;
     }
   };
