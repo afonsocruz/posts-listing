@@ -4,16 +4,20 @@ import { auth } from '../firebase';
 
 interface AppContext {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   currentPage: number;
+  activeProfileDropdown: boolean;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setActiveProfileDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = React.createContext<AppContext>({
   user: null,
-  setUser: () => {},
   currentPage: 1,
+  activeProfileDropdown: false,
+  setUser: () => {},
   setCurrentPage: () => {},
+  setActiveProfileDropdown: () => {},
 });
 
 interface AppProviderProps {
@@ -23,6 +27,8 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [activeProfileDropdown, setActiveProfileDropdown] =
+    React.useState<boolean>(false);
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -33,8 +39,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, []);
 
   const value = React.useMemo(
-    () => ({ user, setUser, currentPage, setCurrentPage }),
-    [user, currentPage]
+    () => ({
+      user,
+      setUser,
+      currentPage,
+      setCurrentPage,
+      activeProfileDropdown,
+      setActiveProfileDropdown,
+    }),
+    [user, currentPage, activeProfileDropdown]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

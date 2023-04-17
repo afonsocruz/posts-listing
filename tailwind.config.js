@@ -14,6 +14,9 @@ export default {
       boxShadow: {
         light: '3px 5px 22px -3px rgba(255,255,255,0.61);',
       },
+      borderRadius: {
+        trullyRounded: '50%',
+      },
     },
   },
   plugins: [],
