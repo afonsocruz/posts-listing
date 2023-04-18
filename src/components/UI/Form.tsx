@@ -44,13 +44,13 @@ const Form: React.FC<FormProps> = (props: FormProps) => {
         />
         <Button
           type="submit"
-          className="w-full rounded-sm p-2 pl-4 mb-2 bg-fluorescent text-white xs:text-xs md:text-sm opacity-70 hover:opacity-100 transition-opacity"
+          className="w-full rounded-sm p-2 pl-4 mb-2 bg-transparent border border-fluorescent text-white xs:text-xs md:text-sm opacity-70 hover:opacity-100 transition-opacity"
           label={props.label}
         />
         {props.label !== 'Criar conta' && (
           <Button
             type="button"
-            className="w-full rounded-sm p-2 pl-4 mb-2 bg-fluorescent text-white xs:text-xs md:text-sm opacity-70 hover:opacity-100 transition-opacity"
+            className="w-full rounded-sm p-2 pl-4 mb-2 bg-transparent border border-fluorescent text-white xs:text-xs md:text-sm opacity-70 hover:opacity-100 transition-opacity"
             label="Entrar com Google"
             onClick={props.googleAuthHandler}
           />

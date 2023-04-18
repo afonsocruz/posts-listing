@@ -31,8 +31,8 @@ const HomePage: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      setIsLoading(true);
       let response = await GoogleSignIn();
+      setIsLoading(true);
       setUser(response?.user);
       setIsLoading(false);
       toast.success('Logado com sucesso!');
